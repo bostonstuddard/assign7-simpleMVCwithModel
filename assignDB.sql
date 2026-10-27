@@ -15,7 +15,7 @@ CREATE TABLE users (
     passwd VARCHAR(255) NOT NULL
 );
 
---- Insert users into users table
+-- Insert users into users table
 INSERT INTO users (fname, lname, username, passwd) VALUES
 ('John', 'Doe', 'jdoe', 'Password123!'),
 ('Jane', 'Smith', 'jsmith', 'SecurePass#99'),

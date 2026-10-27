@@ -1,26 +1,41 @@
 ## Assignment 7: Simple Model-View-Controller Database Backend Modification
 
-This repository contains the Simple MVC Application from week 6.  This Application has just an array of JSON objects in the `userDB.js` file.  This is the model file in MVC and it contains all of the database interaction.  You will need to use **callbacks** for your MySQL2 calls, **Not Promises**. You need to make the following modifications to this application:
-1. Install the MySQL2 Library to your project
-```
-npm install mysql2
-```
-2. Add the database connection code to your `userDB.js` file. All of the required connection values are in the `assignDB.sql` file. (Refer to the MYSQL2 Documentation)
-3. Convert your `getUsers()` function to execute the SQL and return the array of user JSON objects.  Update your View, `manageUsers.ej` to display all of the columns correctly. (Refer to the MYSQL2 Documentation)
-4. Convert your `addUser()` function to store the new user in the **users** table. (Refer to the MYSQL2 Documentation)
+This application uses Express, EJS, and a MySQL database. The MVC model in `models/userDB.js` uses **MySQL2 callbacks (not Promises)** to retrieve users and insert new ones. The view displays all five columns in the supplied `users` table: `userID`, `fname`, `lname`, `username`, and `passwd`.
 
-![MVC Diagram](mvcDesign.png)
+### Set up on your VM
 
-To Create the **assignDD** database
-```
-sudo mysql < assignDB.sql
-```
-To run the application.  Clone the repository to your VM.and from the repository directory:
-```
-node server.js
-```
-From the browser: HTTP://localhost:3000
+1. Clone this repository and change to the project directory.
+2. Install Node.js dependencies (including MySQL2):
+   ```bash
+   npm install
+   ```
+3. Install/start MySQL if needed. Create and populate the assignment database **once**:
+   ```bash
+   sudo mysql < assignDB.sql
+   ```
+   **Warning:** the SQL file drops and recreates the `assignDB` database and user. Running it again deletes any users you added.
+4. Start the server:
+   ```bash
+   npm start
+   ```
+5. Visit `http://localhost:3000` (or forward port 3000 from the VM).
 
-#### User Management View
+By default the app uses the credentials supplied in `assignDB.sql`: MySQL user `assignDBuser`, password `assignDBpass`, database `assignDB`, and host `localhost`. You can override these with the `DB_HOST`, `DB_USER`, `DB_PASSWORD`, and `DB_NAME` environment variables.
 
-![User Management](userManage.png)
+### Assignment changes
+
+- Added the `mysql2` dependency.
+- Replaced the simulated JavaScript users array with callback-based `SELECT` and parameterized `INSERT` queries in `models/userDB.js`.
+- Updated the Express routes to handle database errors and required fields.
+- Updated `views/manageUsers.ejs` to display every database column, use `userID`, and collect the required password when adding a user.
+- Fixed the malformed comment before the sample INSERT statements in `assignDB.sql`.
+
+Run `npm test` for model unit tests (no MySQL server is required for the unit tests). The full application requires a running MySQL database.
+
+**Note:** This exercise follows the supplied schema, which stores sample passwords in plaintext and displays the password column. Real applications must hash passwords and never display them.
+
+### Original assignment diagrams
+
+![MVC Diagram](https://raw.githubusercontent.com/bostonstuddard/assign7-simpleMVCwithModel/main/mvcDesign.png)
+
+![User Management](https://raw.githubusercontent.com/bostonstuddard/assign7-simpleMVCwithModel/main/userManage.png)
