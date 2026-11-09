@@ -13,7 +13,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-            - name: Install required Node.js modules
+      - name: Install required Node.js modules
         run: npm ci --no-audit --no-fund
       - name: Syntax checks
         run: |
