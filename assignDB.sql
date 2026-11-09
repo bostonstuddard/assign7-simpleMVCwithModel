@@ -3,8 +3,8 @@ DROP USER IF EXISTS 'assignDBuser'@'localhost';
 CREATE DATABASE assignDB;
 USE assignDB;
 
-CREATE USER 'assignDBuser'@'localhost' identified BY 'assignDBpass';
-GRANT all ON assignDB.* TO 'assignDBuser'@'localhost';
+CREATE USER 'assignDBuser'@'localhost' IDENTIFIED BY 'assignDBpass';
+GRANT ALL ON assignDB.* TO 'assignDBuser'@'localhost';
 
 -- Create the users table
 CREATE TABLE users (
@@ -15,7 +15,7 @@ CREATE TABLE users (
     passwd VARCHAR(255) NOT NULL
 );
 
--- Insert users into users table
+-- Insert sample users into users table
 INSERT INTO users (fname, lname, username, passwd) VALUES
 ('John', 'Doe', 'jdoe', 'Password123!'),
 ('Jane', 'Smith', 'jsmith', 'SecurePass#99'),
